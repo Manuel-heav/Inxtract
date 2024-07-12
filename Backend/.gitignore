@@ -1,0 +1,12 @@
+# Build artifacts
+bin/
+obj/
+
+# NuGet Global Folder (For backend dependencies)
+packages/
+
+# MSBuild Binary and Structured Log
+*.binlog
+
+# Dependency lock files (For backend dependencies)
+NuGet.Lock
