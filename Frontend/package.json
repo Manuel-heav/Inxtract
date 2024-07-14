@@ -1,5 +1,5 @@
 {
-  "name": "inxtract",
+  "name": "my-project",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "next": "14.2.4",
+    "next": "14.2.5",
     "react": "^18",
     "react-dom": "^18"
   },
