@@ -9,7 +9,7 @@ export function Sidebar() {
         <img src="/logo.png" className="h-10 ml-5 mb-12 mt-5" />
         <h2 className="cursor-pointer p-3 bg-[#F05A24] text-white rounded-full text-center">New Summarize</h2>
       </div>
-      <div className="flex flex-col justify-between h-[60vh]">
+      <div className="flex flex-col justify-between h-[70vh]">
             <nav className="grid gap-2 p-4">
               <Link href="#" className="flex items-center gap-3 p-1 rounded-md hover:bg-muted" prefetch={false}>
                 <LayoutGridIcon className="w-5 h-5 text-muted-foreground" />
@@ -35,11 +35,11 @@ export function Sidebar() {
                 <CodeIcon className="w-5 h-5 text-muted-foreground" />
                 <span>Developer API</span>
               </Link>
-              <Link href="#" className="flex items-center gap-3 p-2 rounded-md hover:bg-muted" prefetch={false}>
+              <Link href="#" className="flex items-center gap-3 p-1 rounded-md hover:bg-muted" prefetch={false}>
                 <LayoutGridIcon className="w-5 h-5 text-muted-foreground" />
                 <span>Learn More</span>
               </Link>
-              <Link href="#" className="flex items-center gap-3 p-2 rounded-md hover:bg-muted" prefetch={false}>
+              <Link href="#" className="flex items-center gap-3 p-1 rounded-md hover:bg-muted" prefetch={false}>
                 <FileTextIcon className="w-5 h-5 text-muted-foreground" />
                 <span>Contact Us</span>
               </Link>
@@ -51,7 +51,7 @@ export function Sidebar() {
                 <div className="text-sm font-medium">75%</div>
               </div>
               <Button variant="secondary" className="mt-3 w-full">
-              19 summaries used of 30 (Upgrade)
+              19 summaries used of 30
               </Button>
             </div>
       </div>
