@@ -1,11 +1,16 @@
+import { Sidebar } from "@/components/component/sidebar";
+
 export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <>
-    {children}
-    </>
+    <div className="relative min-h-screen pl-64">
+      <Sidebar />
+      <div className="flex-1 bg-background text-foreground">
+        {children}
+      </div>
+    </div>
   );
 }
