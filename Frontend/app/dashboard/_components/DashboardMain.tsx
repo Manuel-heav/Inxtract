@@ -14,7 +14,7 @@ export default function DashboardMain() {
                 {
                     isSignedIn && <h1 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">Hello {user.fullName},</h1>
                 }
-                <p className="text-[#8C8C91] mb-5">Explore content more deeply and effectively</p>
+                <p className="text-[#8C8C91] mb-5">Explore content more deeply and effectively.</p>
 
                 <div className="flex gap-2">
                     <Card className="mb-3 rounded-3xl bg-[#FBE9D0]">
