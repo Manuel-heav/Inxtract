@@ -1,5 +1,6 @@
 import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { ClerkProvider, SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 
 export default function Topbar() {
   return (
@@ -12,10 +13,12 @@ export default function Topbar() {
       <div className="bg-white gap-4 flex items-center p-3 m-3 rounded-full shadow-custom-1">
         <SettingsIcon className="w-6 h-6 text-muted-foreground cursor-pointer hover:scale-105" />
         <BellIcon className="w-6 h-6 text-muted-foreground cursor-pointer hover:scale-105" />
-        <Avatar>
-            <AvatarImage src="https://github.com/shadcn.png" />
-            <AvatarFallback>CN</AvatarFallback>
-        </Avatar>
+        <SignedOut>
+          <SignInButton />
+        </SignedOut>
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
       </div>
     </div>
   );

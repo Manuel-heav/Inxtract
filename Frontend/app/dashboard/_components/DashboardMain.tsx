@@ -1,14 +1,19 @@
+"use client"
 import { Card, CardContent } from "@/components/ui/card";
 import CTA from "./CTA";
 import LatestSummaries from "./LatestSummaries";
 import { PlanSidebar } from "@/components/component/plan-sidebar";
+import { useUser } from "@clerk/clerk-react";
 
 
 export default function DashboardMain() {
+    const { isSignedIn, user } = useUser();
     return (
         <div className="flex gap-5 mx-8 bg-[#fff] p-7 rounded-3xl shadow-custom-1">
             <div className="w-[65%]">
-                <h1 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">Hello John,</h1>
+                {
+                    isSignedIn && <h1 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">Hello {user.fullName},</h1>
+                }
                 <p className="text-[#8C8C91] mb-5">Explore content more deeply and effectively</p>
 
                 <div className="flex gap-2">
