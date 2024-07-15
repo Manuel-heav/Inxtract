@@ -23,6 +23,7 @@ builder.Services.AddScoped<IMongoDatabase>(sp =>
 
 // Register UserService
 builder.Services.AddScoped<UserService>();
+builder.Services.AddTransient<ChatWithPdfService>();
 
 var app = builder.Build();
 

@@ -10,3 +10,6 @@ packages/
 
 # Dependency lock files (For backend dependencies)
 NuGet.Lock
+
+# API keys folder
+API_KEYS/
