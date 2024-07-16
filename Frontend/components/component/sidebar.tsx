@@ -11,11 +11,11 @@ export function Sidebar() {
       </div>
       <div className="flex flex-col justify-between h-[70vh]">
             <nav className="grid gap-2 p-4">
-              <Link href="#" className="flex items-center gap-3 p-1 rounded-md hover:bg-muted" prefetch={false}>
+              <Link href="/dashboard" className="flex items-center gap-3 p-1 rounded-md hover:bg-muted" prefetch={false}>
                 <LayoutGridIcon className="w-5 h-5 text-muted-foreground" />
                 <span>Dashboard</span>
               </Link>
-              <Link href="#" className="flex items-center gap-3 p-1 rounded-md hover:bg-muted" prefetch={false}>
+              <Link href="/dashboard/summarize" className="flex items-center gap-3 p-1 rounded-md hover:bg-muted" prefetch={false}>
                 <BookOpenIcon className="w-5 h-5 text-muted-foreground" />
                 <span>Articles</span>
               </Link>
@@ -23,13 +23,13 @@ export function Sidebar() {
                 <VideoIcon className="w-5 h-5 text-muted-foreground" />
                 <span>Videos</span>
               </Link>
-              <Link href="#" className="flex items-center gap-3 p-1 rounded-md hover:bg-muted" prefetch={false}>
+              <Link href="/dashboard/about" className="flex items-center gap-3 p-1 rounded-md hover:bg-muted" prefetch={false}>
                 <FileTextIcon className="w-5 h-5 text-muted-foreground" />
-                <span>Documents</span>
+                <span>About</span>
               </Link>
               <Link href="#" className="flex items-center gap-3 p-1 rounded-md hover:bg-muted" prefetch={false}>
                 <CopyIcon className="w-5 h-5 text-muted-foreground" />
-                <span>Plagiarism Checker</span>
+                <span>Pricing</span>
               </Link>
               <Link href="#" className="flex items-center gap-3 p-1 rounded-md hover:bg-muted" prefetch={false}>
                 <CodeIcon className="w-5 h-5 text-muted-foreground" />

@@ -1,7 +1,9 @@
+import { About } from "@/components/component/about";
+
 export default function DashboardHome(){
     return(
         <div>
-            <h1>Dashboard Home</h1>
+            <About />
         </div>
     )
 }
