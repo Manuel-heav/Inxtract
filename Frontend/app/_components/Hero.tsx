@@ -1,5 +1,6 @@
 import Testimonials from "@/components/Testimonials";
 import { Card, CardContent } from "@/components/ui/card";
+import Link from "next/link";
 
 export default function Hero(){
     return (
@@ -16,7 +17,9 @@ export default function Hero(){
         <div className="flex mt-5 gap-16">
             <div>
                 <div className="flex items-center gap-2">
-                    <h2 className="cursor-pointer p-3 bg-[#F05A24] text-white rounded-full">Start For Free</h2>
+                    <Link href="/dashboard">
+                        <h2 className="cursor-pointer p-3 bg-[#F05A24] text-white rounded-full">Start For Free</h2>
+                    </Link>
                     <h2 className="cursor-pointer p-3 bg-transparent rounded-full border">Learn More</h2>
                 </div>
 
