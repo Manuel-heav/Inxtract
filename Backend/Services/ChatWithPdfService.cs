@@ -40,20 +40,12 @@ namespace Backend.Services
             };
 
             string apiKeyFilePath = "API_KEYS/gemini.txt";
-            string apiKey;
+            string apiKey = File.ReadAllText(apiKeyFilePath);
+            apiKey = Environment.GetEnvironmentVariable("API_KEY_GEMINI") ?? apiKey;
 
-            try
+            if (string.IsNullOrEmpty(apiKey))
             {
-                apiKey = File.ReadAllText(apiKeyFilePath);
-            }
-            catch (FileNotFoundException)
-            {
-                Console.WriteLine("Error: API key file not found!");
-                return "";
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error reading API key file: " + ex.Message);
+                Console.WriteLine("Error: API key not found!");
                 return "";
             }
 
