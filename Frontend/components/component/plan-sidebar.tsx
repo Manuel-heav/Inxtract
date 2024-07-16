@@ -19,6 +19,7 @@ To read more about using these font, please visit the Next.js documentation:
 **/
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
 
 export function PlanSidebar() {
   return (
@@ -31,7 +32,9 @@ export function PlanSidebar() {
         <div className="text-muted-foreground">of your monthly limit used</div>
       </CardContent>
       <CardFooter>
-        <Button className="w-full">Upgrade plan</Button>
+        <Link href="/dashboard/pricing" className="w-[100%]">
+          <Button className="w-full">Upgrade plan</Button>
+        </Link>
       </CardFooter>
     </Card>
   )

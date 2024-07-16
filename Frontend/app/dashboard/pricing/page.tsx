@@ -59,14 +59,14 @@ const PricingCard = ({ isYearly, title, monthlyPrice, yearlyPrice, description, 
               className={cn("px-2.5 rounded-xl h-fit text-sm py-1 bg-zinc-200 text-black dark:bg-zinc-800 dark:text-white", {
                 "bg-gradient-to-r from-orange-400 to-rose-400 dark:text-black ": popular,
               })}>
-              Save ${monthlyPrice * 12 - yearlyPrice}
+              Save {monthlyPrice * 12 - yearlyPrice}ETB
             </div>
           </div>
         ) : (
           <CardTitle className="text-zinc-700 dark:text-zinc-300 text-lg">{title}</CardTitle>
         )}
         <div className="flex gap-0.5">
-          <h3 className="text-3xl font-bold">{yearlyPrice && isYearly ? "$" + yearlyPrice : monthlyPrice ? "$" + monthlyPrice : "Custom"}</h3>
+          <h3 className="text-3xl font-bold">{yearlyPrice && isYearly ? + yearlyPrice + "ETB": monthlyPrice ?  monthlyPrice + "ETB" : "Custom"}</h3>
           <span className="flex flex-col justify-end text-sm mb-1">{yearlyPrice && isYearly ? "/year" : monthlyPrice ? "/month" : null}</span>
         </div>
         <CardDescription className="pt-1.5 h-12">{description}</CardDescription>
@@ -99,28 +99,28 @@ export default function page() {
 
   const plans = [
     {
-      title: "Basic",
-      monthlyPrice: 10,
-      yearlyPrice: 100,
+      title: "Personal",
+      monthlyPrice: 0,
+      yearlyPrice: 0,
       description: "Essential features you need to get started",
-      features: ["Example Feature Number 1", "Example Feature Number 2", "Example Feature Number 3"],
+      features: ["30 Summaries a month", "Ads", "Community Support"],
       actionLabel: "Get Started",
     },
     {
       title: "Pro",
-      monthlyPrice: 25,
-      yearlyPrice: 250,
-      description: "Perfect for owners of small & medium businessess",
-      features: ["Example Feature Number 1", "Example Feature Number 2", "Example Feature Number 3"],
-      actionLabel: "Get Started",
+      monthlyPrice: 125,
+      yearlyPrice: 2050,
+      description: "Unlimited summaries, customization, quick customer support and more",
+      features: ["Unlimited Summaries", "Use advanced search options", "Save and export summaries", "Customize summarizing settings"],
+      actionLabel: "Buy Now",
       popular: true,
     },
     {
       title: "Enterprise",
       price: "Custom",
-      description: "Dedicated support and infrastructure to fit your needs",
-      features: ["Example Feature Number 1", "Example Feature Number 2", "Example Feature Number 3", "Super Exclusive Feature"],
-      actionLabel: "Contact Sales",
+      description: "Team focused with priority support, API accesss and advanced security options",
+      features: ["Multiple team accounts", "Premium priority support", "Custom training sessions", "Comprehensive API access", "Advanced security Protocol"],
+      actionLabel: "Get Enterprise Plan",
       exclusive: true,
     },
   ]
