@@ -4,7 +4,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";
 import { useState } from "react";
-import { useAuth } from "@clerk/clerk-react";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -20,17 +19,7 @@ import { formSchema } from "@/schemas/formSchema";
 
 type FormData = z.infer<typeof formSchema>;
 
-const presets = [
-  "Explain the methodologies",
-  "What are the contributions",
-  "Explain like I'm 5",
-  "Summarize the literature review",
-"what were the results of the methodologies of this research",
-"List a glossary of the technical terms"
-];
-
-export function SummaryForm() {
-  const { userId } = useAuth();
+export function DocumentForm() {
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -42,7 +31,6 @@ export function SummaryForm() {
   const [summary, setSummary] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [selectedPreset, setSelectedPreset] = useState<string>("");
 
   const apiEndpoint1 = "http://localhost:5268/api/chatWithPdf/gettext";
   const apiEndpoint2 = "http://localhost:5268/api/chatWithPdf/summary";
@@ -66,7 +54,7 @@ export function SummaryForm() {
     }
   };
 
-  const callApi = async (url: string, body: { text: string; prompt?: string; userId: string }) => {
+  const callApi = async (url: string, body: { text: string; prompt?: string }) => {
     const requestOptions: RequestInit = {
       method: "POST",
       body: JSON.stringify(body),
@@ -92,19 +80,11 @@ export function SummaryForm() {
     setSummary(null);
     setError(null);
 
-    if (!userId) {
-      setError("User ID is required.");
-      setIsLoading(false);
-      return;
-    }
-
     const formData = new FormData();
     if (values.file) {
       formData.append("file", values.file, "1ef428e6-9601-4af0-bb13-08291557a45a");
     }
-    const combinedPrompt = values.prompt + (selectedPreset ? " " + selectedPreset : "");
-    formData.append("prompt", combinedPrompt);
-    formData.append("userId", userId); // Append userId to formData
+    formData.append("prompt", values.prompt);
 
     try {
       const result1 = await callApiWithFormData(apiEndpoint1, formData);
@@ -114,7 +94,7 @@ export function SummaryForm() {
         return;
       }
 
-      const raw2 = { text: result1.text, userId }; // Include userId
+      const raw2 = { text: result1.text };
 
       const result2 = await callApi(apiEndpoint2, raw2);
 
@@ -123,7 +103,7 @@ export function SummaryForm() {
         return;
       }
 
-      const raw3 = { text: result1.text, prompt: combinedPrompt, userId }; // Include userId
+      const raw3 = { text: result1.text, prompt: values.prompt };
 
       const result3 = await callApi(apiEndpoint3, raw3);
 
@@ -179,24 +159,8 @@ export function SummaryForm() {
             )}
           />
 
-          <div className="mb-5">
-            <FormLabel>Preset</FormLabel>
-            <select
-              value={selectedPreset}
-              onChange={(e) => setSelectedPreset(e.target.value)}
-              className="block w-full px-4 py-2 mt-1 text-base text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:border-blue-300"
-            >
-              <option value="">Select a preset</option>
-              {presets.map((preset, index) => (
-                <option key={index} value={preset}>
-                  {preset}
-                </option>
-              ))}
-            </select>
-          </div>
-
           <Button type="submit" disabled={isLoading}>
-            {isLoading ? "Loading..." : "Analyze"}
+            {isLoading ? "Loading..." : "Collaborate"}
           </Button>
         </form>
       </Form>

@@ -8,6 +8,7 @@ import { useUser } from "@clerk/clerk-react";
 
 export default function DashboardMain() {
     const { isSignedIn, user } = useUser();
+    console.log(user)
     return (
         <div className="flex gap-5 mx-8 bg-[#fff] p-7 rounded-3xl shadow-custom-1">
             <div className="w-[65%]">

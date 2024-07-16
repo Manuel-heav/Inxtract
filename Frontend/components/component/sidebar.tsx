@@ -6,7 +6,9 @@ export function Sidebar() {
   return (
     <div className="absolute top-0 left-0 h-full w-64 border-r text-foreground">
       <div className="px-4 py-3 border-b">
-        <img src="/logo.png" className="h-10 ml-5 mb-12 mt-5" />
+        <Link href="/">
+          <img src="/logo.png" className="h-10 ml-5 mb-12 mt-5" />
+        </Link>
         <Link href="/dashboard/summarize">
         <h2 className="cursor-pointer p-3 bg-[#F05A24] text-white rounded-full text-center">New Summarize</h2>
         </Link>
@@ -21,7 +23,7 @@ export function Sidebar() {
                 <BookOpenIcon className="w-5 h-5 text-muted-foreground" />
                 <span>Articles</span>
               </Link>
-              <Link href="/dashboard/documents" className="flex items-center gap-3 p-1 rounded-md hover:bg-muted" prefetch={false}>
+              <Link href="/dashboard/document" className="flex items-center gap-3 p-1 rounded-md hover:bg-muted" prefetch={false}>
               <FileTextIcon className="w-5 h-5 text-muted-foreground" />
                 <span>Documents</span>
               </Link>
