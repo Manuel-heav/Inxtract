@@ -4,7 +4,7 @@ namespace Backend.Services
 {
     public class DocsService
     {
-        internal async Task<bool> CreateDocAsync(DocsModel docsModel)
+        internal async Task<bool> CreateDocAsync(CreateDocModel createDocModel)
         {
             // make an API call to Google Docs to get a list of documents
             // var documents = await GetDocumentsAsync();
@@ -21,7 +21,7 @@ namespace Backend.Services
             return true;
         }
 
-        private async Task CreateDocumentAsync(DocsModel docsModel)
+        private async Task CreateDocumentAsync(string documentName)
         {
             throw new NotImplementedException();
         }

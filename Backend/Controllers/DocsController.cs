@@ -16,9 +16,9 @@ namespace Backend.Controllers
 
         [HttpPost]
         [Route("create")]
-        public async Task<IActionResult> CreateDoc(DocsModel DocsModel)
+        public async Task<IActionResult> CreateDoc(CreateDocModel createDocModel)
         {
-            var success = await _DocsService.CreateDocAsync(DocsModel);
+            var success = await _DocsService.CreateDocAsync(createDocModel);
             if (!success)
             {
                 return Conflict(new { message = "Doc already exists." });
