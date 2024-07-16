@@ -1,5 +1,6 @@
 using Backend.Models;
 using Backend.Services;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using System.Threading.Tasks;
@@ -17,11 +18,13 @@ namespace Backend.Controllers
             _chatWithPdfService = chatWithPdfService;
         }
 
-        public async Task<string> getPdfText(IFormFile file)
+        [HttpPost]
+        [Route("gettext")]
+        public async Task<IActionResult> ExtractText([FromForm] IFormFile file)
         {
             if (file == null || file.Length == 0)
             {
-                return "";
+                return BadRequest(new { message = "Invalid File" });
             }
 
             var filePath = Path.GetTempFileName();
@@ -36,25 +39,28 @@ namespace Backend.Controllers
             // Delete the temporary file
             System.IO.File.Delete(filePath);
 
-            return pdfText;
+            return Ok(new { text = pdfText });
         }
 
+        [HttpPost]
+        [Route("summary")]
+        public async Task<IActionResult> SummarizeText(TextModel textModel)
+        {
+            // Prompt to summarize text
+            string prompt = "Summarize the following text. Do not write anything else. Do not say something like -here is the summary-, just return the summary";
+
+            // Call Gemini API with the text and prompt
+            string response = await _chatWithPdfService.CallGeminiApiAsync(textModel.Text, prompt);
+            return Ok(response);
+        }
 
         [HttpPost]
         [Route("chat")]
-        public async Task<IActionResult> UploadPdfWithPrompt([FromForm] IFormFile file, [FromForm] string prompt)
+        public async Task<IActionResult> ChatWithAI(TextModel textModel)
         {
-            // Extract text from the PDF
-            string pdfText = await getPdfText(file);
-            if (string.IsNullOrWhiteSpace(pdfText) || string.IsNullOrWhiteSpace(prompt))
-            {
-                return BadRequest(new { message = "Invalid file or prompt." });
-            }
-
-            // Call Gemini API with the extracted text and prompt
-            string response = await _chatWithPdfService.CallGeminiApiAsync(pdfText, prompt);
+            // Call Gemini API with the text and prompt
+            string response = await _chatWithPdfService.CallGeminiApiAsync(textModel.Text, textModel.Prompt);
             return Ok(response);
         }
     }
 }
-
