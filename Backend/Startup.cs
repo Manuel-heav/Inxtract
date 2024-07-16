@@ -1,6 +1,7 @@
 using Backend.Data;
 using Backend.Services;
 
+
 public class Startup
 {
     public Startup(IConfiguration configuration)
@@ -15,6 +16,17 @@ public class Startup
         services.AddSingleton<MongoDbContext>();
         services.AddScoped<UserService>();
         services.AddControllers();
+
+        services.AddCors(options =>
+        {
+            options.AddPolicy("AllowFrontendServers",
+                builder =>
+                {
+                    builder.WithOrigins("http://localhost:3000")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
+        });
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -25,6 +37,8 @@ public class Startup
         }
 
         app.UseRouting();
+
+        app.UseCors("AllowFrontendServers");
 
         app.UseAuthorization();
 

@@ -1,9 +1,6 @@
 using Backend.Models;
 using Backend.Services;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using System.IO;
-using System.Threading.Tasks;
 
 namespace Backend.Controllers
 {
@@ -46,6 +43,11 @@ namespace Backend.Controllers
         [Route("summary")]
         public async Task<IActionResult> SummarizeText(TextModel textModel)
         {
+            if (string.IsNullOrWhiteSpace(textModel.Text))
+            {
+                return BadRequest(new { message = "Invalid text." });
+            }
+
             // Prompt to summarize text
             string prompt = "Summarize the following text. Do not write anything else. Do not say something like -here is the summary-, just return the summary";
 
@@ -58,6 +60,12 @@ namespace Backend.Controllers
         [Route("chat")]
         public async Task<IActionResult> ChatWithAI(TextModel textModel)
         {
+            if (string.IsNullOrWhiteSpace(textModel.Text) ||
+             string.IsNullOrWhiteSpace(textModel.Prompt))
+            {
+                return BadRequest(new { message = "Invalid text or prompt." });
+            }
+
             // Call Gemini API with the text and prompt
             string response = await _chatWithPdfService.CallGeminiApiAsync(textModel.Text, textModel.Prompt);
             return Ok(response);
