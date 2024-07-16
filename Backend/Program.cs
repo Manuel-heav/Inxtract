@@ -2,8 +2,6 @@ using Backend.Data;
 using Backend.Services;
 using MongoDB.Driver;
 
-
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -25,6 +23,7 @@ builder.Services.AddScoped<IMongoDatabase>(sp =>
 
 // Register UserService
 builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<ConversationsService>();
 builder.Services.AddTransient<ChatWithPdfService>();
 
 var app = builder.Build();

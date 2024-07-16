@@ -9,10 +9,12 @@ namespace Backend.Controllers
     public class ChatWithPdfController : ControllerBase
     {
         private readonly ChatWithPdfService _chatWithPdfService;
+        private readonly ConversationsService _conversationsService;
 
-        public ChatWithPdfController(ChatWithPdfService chatWithPdfService)
+        public ChatWithPdfController(ChatWithPdfService chatWithPdfService, ConversationsService conversationsService)
         {
             _chatWithPdfService = chatWithPdfService;
+            _conversationsService = conversationsService;
         }
 
         [HttpPost]
@@ -48,11 +50,26 @@ namespace Backend.Controllers
                 return BadRequest(new { message = "Invalid text." });
             }
 
+            if (string.IsNullOrWhiteSpace(textModel.UserId))
+            {
+                return BadRequest(new { message = "Invalid userid." });
+            }
+
             // Prompt to summarize text
             string prompt = "Summarize the following text. Do not write anything else. Do not say something like -here is the summary-, just return the summary";
 
             // Call Gemini API with the text and prompt
             string response = await _chatWithPdfService.CallGeminiApiAsync(textModel.Text, prompt);
+
+            Conversation conversation = new()
+            {
+                Text = textModel.Text,
+                Prompt = prompt,
+                AIResponse = response,
+                UserId = textModel.UserId
+            };
+
+            await _conversationsService.CreateConversationAsync(conversation);
             return Ok(response);
         }
 
@@ -66,8 +83,23 @@ namespace Backend.Controllers
                 return BadRequest(new { message = "Invalid text or prompt." });
             }
 
+            if (string.IsNullOrWhiteSpace(textModel.UserId))
+            {
+                return BadRequest(new { message = "Invalid userid." });
+            }
+
             // Call Gemini API with the text and prompt
             string response = await _chatWithPdfService.CallGeminiApiAsync(textModel.Text, textModel.Prompt);
+
+            Conversation conversation = new()
+            {
+                Text = textModel.Text,
+                Prompt = textModel.Prompt,
+                AIResponse = response,
+                UserId = textModel.UserId
+            };
+
+            await _conversationsService.CreateConversationAsync(conversation);
             return Ok(response);
         }
     }

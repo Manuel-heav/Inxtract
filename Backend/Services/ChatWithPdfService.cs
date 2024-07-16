@@ -1,5 +1,6 @@
 using System.Text;
 using System.Text.Json;
+using Backend.Controllers;
 using iTextSharp.text.pdf;
 using iTextSharp.text.pdf.parser;
 
@@ -61,6 +62,7 @@ namespace Backend.Services
 
             var response = await client.PostAsync("https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=" + apiKey, content);
             var responseBody = await response.Content.ReadAsStringAsync();
+
             return responseBody;
         }
     }
