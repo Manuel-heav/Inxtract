@@ -61,16 +61,15 @@ namespace Backend.Controllers
             // Call Gemini API with the text and prompt
             string response = await _chatWithPdfService.CallGeminiApiAsync(textModel.Text, prompt);
 
-            Conversation conversation = new()
+            Conversation conversation = new(response)
             {
                 Text = textModel.Text,
                 Prompt = prompt,
-                AIResponse = response,
                 UserId = textModel.UserId
             };
 
             await _conversationsService.CreateConversationAsync(conversation);
-            return Ok(response);
+            return Ok(new { text = response });
         }
 
         [HttpPost]
@@ -91,16 +90,17 @@ namespace Backend.Controllers
             // Call Gemini API with the text and prompt
             string response = await _chatWithPdfService.CallGeminiApiAsync(textModel.Text, textModel.Prompt);
 
-            Conversation conversation = new()
+            // Create a new conversation object
+            Conversation conversation = new(response)
             {
                 Text = textModel.Text,
                 Prompt = textModel.Prompt,
-                AIResponse = response,
                 UserId = textModel.UserId
             };
 
+            // Save the conversation
             await _conversationsService.CreateConversationAsync(conversation);
-            return Ok(response);
+            return Ok(new { text = response });
         }
     }
 }

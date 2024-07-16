@@ -19,21 +19,10 @@ namespace Backend.Services
             return true;
         }
 
-        public async Task<List<ConversationHeader>> GetAllConversationsAsync(string userid)
+        public async Task<List<Conversation>> GetAllConversationsAsync(string userid)
         {
             List<Conversation> conversations = await _conversations.Find(conversation => conversation.UserId == userid).ToListAsync();
-            List<ConversationHeader> conversationHeaders = [];
-
-            foreach (Conversation conversation in conversations)
-            {
-                conversationHeaders.Add(new ConversationHeader
-                {
-                    Id = conversation.Id,
-                    Title = conversation.Title,
-                });
-            }
-
-            return conversationHeaders;
+            return conversations;
         }
 
         public async Task<Conversation?> GetConversationByIdAsync(string id)

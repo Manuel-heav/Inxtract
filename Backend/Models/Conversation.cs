@@ -2,9 +2,12 @@ namespace Backend.Models
 {
     public class Conversation
     {
-        public Conversation()
+        public Conversation(string response)
         {
-            Title = "Conversation_" + DateTime.Now.ToString("yyyy_MM_dd_HH:mm:ss");
+            AIResponse = response;
+
+            string baseTitle = response.Split(' ')[0] + " " + response.Split(' ')[1];
+            Title = baseTitle + DateTime.Now.ToString("yyyy_MM_dd_HH:mm:ss");
         }
 
         public Guid Id { get; set; }

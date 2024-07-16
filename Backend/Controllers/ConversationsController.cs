@@ -17,7 +17,7 @@ namespace Backend.Controllers
 
         [HttpPost]
         [Route("list")]
-        public async Task<ActionResult<IEnumerable<ConversationHeader>>> ListConversations(UserModel userModel)
+        public async Task<ActionResult<IEnumerable<Conversation>>> ListConversations(UserModel userModel)
         {
             if (string.IsNullOrWhiteSpace(userModel.UserId))
             {

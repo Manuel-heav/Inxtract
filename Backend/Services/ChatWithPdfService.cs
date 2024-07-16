@@ -53,9 +53,15 @@ namespace Backend.Services
             var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
             var response = await client.PostAsync("https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=" + apiKey, content);
-            var responseBody = await response.Content.ReadAsStringAsync();
 
-            return responseBody;
+
+            string responseBody = await response.Content.ReadAsStringAsync();
+
+            var parsedResponse = JsonSerializer.Deserialize<JsonElement>(responseBody);
+
+            var responseText = parsedResponse.GetProperty("candidates")[0].GetProperty("content").GetProperty("parts")[0].GetProperty("text").GetString();
+
+            return responseText;
         }
     }
 }
