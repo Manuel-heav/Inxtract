@@ -7,7 +7,9 @@ export function Sidebar() {
     <div className="absolute top-0 left-0 h-full w-64 border-r text-foreground">
       <div className="px-4 py-3 border-b">
         <img src="/logo.png" className="h-10 ml-5 mb-12 mt-5" />
+        <Link href="/dashboard/summarize">
         <h2 className="cursor-pointer p-3 bg-[#F05A24] text-white rounded-full text-center">New Summarize</h2>
+        </Link>
       </div>
       <div className="flex flex-col justify-between h-[70vh]">
             <nav className="grid gap-2 p-4">
@@ -19,15 +21,12 @@ export function Sidebar() {
                 <BookOpenIcon className="w-5 h-5 text-muted-foreground" />
                 <span>Articles</span>
               </Link>
-              <Link href="#" className="flex items-center gap-3 p-1 rounded-md hover:bg-muted" prefetch={false}>
-                <VideoIcon className="w-5 h-5 text-muted-foreground" />
-                <span>Videos</span>
+              <Link href="/dashboard/documents" className="flex items-center gap-3 p-1 rounded-md hover:bg-muted" prefetch={false}>
+              <FileTextIcon className="w-5 h-5 text-muted-foreground" />
+                <span>Documents</span>
               </Link>
-              <Link href="/dashboard/about" className="flex items-center gap-3 p-1 rounded-md hover:bg-muted" prefetch={false}>
-                <FileTextIcon className="w-5 h-5 text-muted-foreground" />
-                <span>About</span>
-              </Link>
-              <Link href="#" className="flex items-center gap-3 p-1 rounded-md hover:bg-muted" prefetch={false}>
+              
+              <Link href="/dashboard/pricing" className="flex items-center gap-3 p-1 rounded-md hover:bg-muted" prefetch={false}>
                 <CopyIcon className="w-5 h-5 text-muted-foreground" />
                 <span>Pricing</span>
               </Link>
@@ -35,14 +34,11 @@ export function Sidebar() {
                 <CodeIcon className="w-5 h-5 text-muted-foreground" />
                 <span>Developer API</span>
               </Link>
-              <Link href="#" className="flex items-center gap-3 p-1 rounded-md hover:bg-muted" prefetch={false}>
-                <LayoutGridIcon className="w-5 h-5 text-muted-foreground" />
-                <span>Learn More</span>
-              </Link>
-              <Link href="#" className="flex items-center gap-3 p-1 rounded-md hover:bg-muted" prefetch={false}>
+              <Link href="/dashboard/about" className="flex items-center gap-3 p-1 rounded-md hover:bg-muted" prefetch={false}>
                 <FileTextIcon className="w-5 h-5 text-muted-foreground" />
-                <span>Contact Us</span>
+                <span>About</span>
               </Link>
+
             </nav>
             <div className="border-t p-4">
               <div className="flex items-center justify-between">
