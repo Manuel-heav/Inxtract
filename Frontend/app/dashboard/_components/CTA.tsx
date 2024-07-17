@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function CTA() {
   return (
     <section className="w-full py-8 md:py-8 lg:py-8">
@@ -9,12 +11,14 @@ export default function CTA() {
           </p>
         </div>
         <div className="w-full max-w-sm">
+          <Link href="/dashboard/pricing">
           <button
             type="submit"
             className="w-full rounded-md bg-[#f05a24] py-3 text-sm font-medium text-primary-foreground shadow-sm transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
           >
             Sign Up for Premium
           </button>
+          </Link>
         </div>
       </div>
     </section>

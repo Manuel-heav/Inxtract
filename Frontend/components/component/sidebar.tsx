@@ -32,12 +32,8 @@ export function Sidebar() {
                 <CopyIcon className="w-5 h-5 text-muted-foreground" />
                 <span>Pricing</span>
               </Link>
-              <Link href="#" className="flex items-center gap-3 p-1 rounded-md hover:bg-muted" prefetch={false}>
-                <CodeIcon className="w-5 h-5 text-muted-foreground" />
-                <span>Developer API</span>
-              </Link>
               <Link href="/dashboard/about" className="flex items-center gap-3 p-1 rounded-md hover:bg-muted" prefetch={false}>
-                <FileTextIcon className="w-5 h-5 text-muted-foreground" />
+              <CodeIcon className="w-5 h-5 text-muted-foreground" />
                 <span>About</span>
               </Link>
 

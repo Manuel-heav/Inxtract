@@ -13,18 +13,21 @@ export default function Header() {
         <h2 className="text-sm cursor-pointer transition-all duration-300 ease-in-out rounded-full hover:scale-105 p-2 bg-[#f8f8f8] border border-[#e3e3e3]">
           Home
         </h2>
+        <Link href="/dashboard/summarize">
         <h2 className="text-sm cursor-pointer transition-all duration-300 ease-in-out rounded hover:scale-105 p-2">
           Platform
         </h2>
+        </Link>
+        <Link href="dashboard/about">
         <h2 className="text-sm cursor-pointer transition-all duration-300 ease-in-out rounded hover:scale-105 p-2">
-          Resources
+          About
         </h2>
-        <h2 className="text-sm cursor-pointer transition-all duration-300 ease-in-out rounded hover:scale-105 p-2">
-          API
-        </h2>
+        </Link>
+        <Link href="/dashboard/pricing">
         <h2 className="text-sm cursor-pointer transition-all duration-300 ease-in-out rounded-full hover:scale-105 p-2 bg-[#FBE9D0]">
           Premium
         </h2>
+        </Link>
       </div>
 
       <div className="bg-white flex gap-4 p-3 rounded-3xl shadow-custom-1">
