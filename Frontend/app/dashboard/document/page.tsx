@@ -4,6 +4,7 @@ import { useAuth } from "@clerk/clerk-react";
 import Topbar from "../_components/Topbar";
 import { DocumentForm } from "@/form/DocumentForm";
 import Link from "next/link";
+
 interface Document {
     title: string;
     aiResponse: string;
@@ -14,13 +15,13 @@ export default function DocumentSummarize() {
     const { userId } = useAuth();
     const [documents, setDocuments] = useState<Document[]>([]);
     const [loading, setLoading] = useState(true);
-    console.log(documents);
+    const [selectedContent, setSelectedContent] = useState('<p>Hello World! 🌎️</p>');
 
     useEffect(() => {
         if (userId) {
             const fetchDocuments = async () => {
                 try {
-                    const raw = JSON.stringify({ userId: userId }); // Ensure the key matches the backend expectation
+                    const raw = JSON.stringify({ userId: userId });
                     const requestOptions: RequestInit = {
                         method: "POST",
                         body: raw,
@@ -46,6 +47,12 @@ export default function DocumentSummarize() {
         }
     }, [userId]);
 
+    const handleCardItemClick = (aiResponse: string) => {
+        let formattedText = cleanText(aiResponse)?.split(' ').slice(50).join(' ');
+        formattedText = formattedText.substring(0, formattedText.length - 695);
+        setSelectedContent(formattedText);
+    };
+
     return (
         <div>
             <Topbar />
@@ -56,14 +63,14 @@ export default function DocumentSummarize() {
                         <p>Loading...</p>
                     ) : (
                         documents.map((doc, index) => (
-                            <CardItem key={index} title={doc.title} description={doc.aiResponse} time={doc.time} />
+                            <CardItem key={index} title={doc.title} description={doc.aiResponse} time={doc.time} onClick={() => handleCardItemClick(doc.aiResponse)} />
                         ))
                     )}
                 </div>
                 <div>
                     <h1 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">Collaborate on your research</h1>
                     <p className="text-[#8C8C91] mb-5">Work on one document with your colleagues.</p>
-                    <DocumentForm />
+                    <DocumentForm content={selectedContent} />
                 </div>
             </div>
         </div>
@@ -74,15 +81,15 @@ interface CardItemProps {
     title: string;
     description: string;
     time: string;
+    onClick: () => void;
 }
 
-function CardItem({ title, description, time }: CardItemProps) {
+function CardItem({ title, description, time, onClick }: CardItemProps) {
     const formattedTime = getTimeDifferenceFromTitle(title);
     const formattedText = cleanText(description);
 
     return (
-        <Link href="/dashboard/summarize">
-        <div className="flex flex-col gap-2 mb-5 mt-5 cursor-pointer">
+        <div className="flex flex-col gap-2 mb-5 mt-5 cursor-pointer" onClick={onClick}>
             <div className="flex gap-2 items-center">
                 <div className="bg-[#F0F4F9] text-black w-12 h-12 rounded-xl flex items-center justify-center">AI</div>
                 <div>
@@ -92,15 +99,15 @@ function CardItem({ title, description, time }: CardItemProps) {
             </div>
             <p className="text-[#8C8C91]">...{formattedText?.split(' ').slice(100, 115).join(' ')}...</p>
         </div>
-        </Link>
     );
 }
 
-function cleanText(text: String) {
+function cleanText(text: string) {
     return text.replace(/\\n/g, " ").replace(/\\/g, "").trim();
 }
-function getTimeDifferenceFromTitle(title: String) {
-    const dateTimeString = title.split("_").slice(1).join("_"); // Extract the date and time part
+
+function getTimeDifferenceFromTitle(title: string) {
+    const dateTimeString = title.split("_").slice(1).join("_");
     const formattedString = dateTimeString.replace(/_/g, "-").replace("-", "T") + ":00Z";
     const analyzedDate = new Date(formattedString);
     const now = new Date();
