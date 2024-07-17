@@ -25,8 +25,8 @@ const presets = [
   "What are the contributions",
   "Explain like I'm 5",
   "Summarize the literature review",
-"what were the results of the methodologies of this research",
-"List a glossary of the technical terms"
+  "What were the results of the methodologies of this research",
+  "List a glossary of the technical terms"
 ];
 
 export function SummaryForm() {
@@ -86,62 +86,69 @@ export function SummaryForm() {
       throw error;
     }
   };
-
   async function onSubmit(values: FormData) {
     setIsLoading(true);
     setSummary(null);
     setError(null);
-
+  
     if (!userId) {
       setError("User ID is required.");
       setIsLoading(false);
       return;
     }
-
+  
     const formData = new FormData();
     if (values.file) {
-      formData.append("file", values.file, "1ef428e6-9601-4af0-bb13-08291557a45a");
+      formData.append("file", values.file, values.file.name || "uploaded_file");
     }
-    const combinedPrompt = values.prompt + (selectedPreset ? " " + selectedPreset : "");
+    const combinedPrompt = values.prompt.trim() + (selectedPreset ? " " + selectedPreset : "");
     formData.append("prompt", combinedPrompt);
-    formData.append("userId", userId); // Append userId to formData
-
+    formData.append("userId", userId);
+  
     try {
       const result1 = await callApiWithFormData(apiEndpoint1, formData);
-
+  
       if (result1.errors) {
-        setError(JSON.stringify(result1.errors));
+        console.error("Error from API Endpoint 1:", result1.errors);
+        setError(`Error from API Endpoint 1: ${JSON.stringify(result1.errors)}`);
         return;
       }
-
-      const raw2 = { text: result1.text, userId }; // Include userId
-
+  
+      const raw2 = { text: result1.text, userId };
       const result2 = await callApi(apiEndpoint2, raw2);
-
+  
       if (result2.errors) {
-        setError(JSON.stringify(result2.errors));
+        console.error("Error from API Endpoint 2:", result2.errors);
+        setError(`Error from API Endpoint 2: ${JSON.stringify(result2.errors)}`);
         return;
       }
-
-      const raw3 = { text: result1.text, prompt: combinedPrompt, userId }; // Include userId
-
+  
+      const raw3 = { text: result1.text, prompt: combinedPrompt, userId };
       const result3 = await callApi(apiEndpoint3, raw3);
-
+  
       if (result3.errors) {
-        setError(JSON.stringify(result3.errors));
+        console.error("Error from API Endpoint 3:", result3.errors);
+        setError(`Error from API Endpoint 3: ${JSON.stringify(result3.errors)}`);
         return;
       }
-
-      const extractedText = result3.candidates[0].content.parts[0].text;
-      setSummary(extractedText);
+  
+      console.log("Result from API Endpoint 3:", result3);
+      if (result3.text) {
+        const extractedText = result3.text;
+        setSummary(extractedText);
+      } else {
+        setError("Unexpected response structure from API Endpoint 3");
+      }
     } catch (error) {
-      console.error("Error during API calls", error);
-      setError("An error occurred during the API calls.");
+      console.error("Error during API calls:", error);
+      setError(`An error occurred during the API calls: ${error}`);
     } finally {
       setIsLoading(false);
     }
   }
-
+  
+  
+  
   return (
     <div>
       <Form {...form}>
