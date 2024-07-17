@@ -14,11 +14,11 @@ Inxtract is an application designed to summarize research papers and articles ef
 
 ## Features
 
-[x] Secure Authentication
-[x] Great Dashboard
-[x] Article Summary
-[x] Summary Update
-[ ] Collaboration with Team
+- [x] Secure Authentication
+- [x] Great Dashboard
+- [x] Article Summary
+- [x] Summary Update
+- [ ] Collaboration with Team
 
 ## Technologies
 
@@ -96,11 +96,10 @@ If you encounter any issues, refer to the troubleshooting guide.
 
 ## Contributors
 
-Your Name
-Amanuael Kebede
-Eyoel Melkamu
-Mohammed Shemim
-Abdulkerim Seid
+- Amanuael Kebede
+- Eyoel Melkamu
+- Mohammed Shemim
+- Abdulkerim Seid
 
 License
-Inxtract is licensed under the MIT License. See the LICENSE file for more details.
+Inxtract is licensed under the MIT License. See the [LICENSE](/LICENSE.txt) file for more details.
