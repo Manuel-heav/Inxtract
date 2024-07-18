@@ -31,8 +31,8 @@ export default function DashboardMain() {
                     <Card className="mb-3 rounded-3xl bg-[#CFDEFC]">
                         <CardContent className="w-60 h-60 flex flex-col justify-between p-6">
                             <div>
-                                <h1 className="font-bold">Summary average</h1>
-                                <p>Number of analyzed articles</p>
+                                <h1 className="font-bold">Collaborators</h1>
+                                <p>Number of collaborators</p>
                             </div>
                             <h1 className="text-4xl font-bold">24</h1>
                         </CardContent>
@@ -41,8 +41,8 @@ export default function DashboardMain() {
                     <Card className="mb-3 rounded-3xl bg-[#E4E3E8]">
                         <CardContent className="w-60 h-60  flex flex-col justify-between p-6">
                             <div>
-                                <h1 className="font-bold">Summary average</h1>
-                                <p>Number of analyzed articles</p>
+                                <h1 className="font-bold">Research</h1>
+                                <p>Number of analyzed researches</p>
                             </div>
                             <h1 className="text-4xl font-bold">16</h1>
                         </CardContent>

@@ -6,7 +6,7 @@ export default function Topbar() {
   return (
     <div className="flex justify-between mx-8">
       <div className="bg-white flex items-center gap-4 p-3 m-3 rounded-full shadow-custom-1 flex-grow">
-        <Input className="border-none outline-none flex-grow" type="email" placeholder="Search for article, video or document" />
+        <Input className="border-none outline-none flex-grow" type="email" placeholder="Search for article, or document" />
         <SearchIcon className="w-6 h-6 text-muted-foreground" />
       </div>
 
