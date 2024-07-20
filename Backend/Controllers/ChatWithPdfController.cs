@@ -21,10 +21,13 @@ namespace Backend.Controllers
         [Route("gettext")]
         public async Task<IActionResult> ExtractText([FromForm] IFormFile file)
         {
+
             if (file == null || file.Length == 0)
             {
                 return BadRequest(new { message = "Invalid File" });
             }
+
+            Console.WriteLine("Extracting text from PDF...");
 
             var filePath = Path.GetTempFileName();
             using (var stream = new FileStream(filePath, FileMode.Create))
@@ -38,6 +41,7 @@ namespace Backend.Controllers
             // Delete the temporary file
             System.IO.File.Delete(filePath);
 
+            Console.WriteLine("Text extracted successfully.");
             return Ok(new { text = pdfText });
         }
 
@@ -55,9 +59,12 @@ namespace Backend.Controllers
                 return BadRequest(new { message = "Invalid userid." });
             }
 
+            Console.WriteLine("Summarizing text...");
             // Prompt to summarize text
             string prompt = "Summarize the following text. Do not write anything else. Do not say something like -here is the summary-, just return the summary";
 
+
+            Console.WriteLine("Sending text to Gemini API for summarization...");
             // Call Gemini API with the text and prompt
             string response = await _chatWithPdfService.CallGeminiApiAsync(textModel.Text, prompt);
 
@@ -68,7 +75,10 @@ namespace Backend.Controllers
                 UserId = textModel.UserId
             };
 
+            Console.WriteLine("Saving conversation to database...");
             await _conversationsService.CreateConversationAsync(conversation);
+
+            Console.WriteLine("Text summarized successfully.");
             return Ok(new { text = response });
         }
 
@@ -87,7 +97,10 @@ namespace Backend.Controllers
                 return BadRequest(new { message = "Invalid userid." });
             }
 
+            Console.WriteLine("Chatting with AI...");
             // Call Gemini API with the text and prompt
+
+            Console.WriteLine("Sending text to Gemini API for chat...");
             string response = await _chatWithPdfService.CallGeminiApiAsync(textModel.Text, textModel.Prompt);
 
             // Create a new conversation object
@@ -98,8 +111,10 @@ namespace Backend.Controllers
                 UserId = textModel.UserId
             };
 
-            // Save the conversation
+            Console.WriteLine("Saving conversation to database...");
             await _conversationsService.CreateConversationAsync(conversation);
+
+            Console.WriteLine("Chat completed successfully.");
             return Ok(new { text = response });
         }
     }

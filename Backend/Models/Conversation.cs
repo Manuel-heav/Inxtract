@@ -6,6 +6,11 @@ namespace Backend.Models
         {
             AIResponse = response;
 
+            if (string.IsNullOrWhiteSpace(response))
+            {
+                return;
+            }
+
             string baseTitle = response.Split(' ')[0] + " " + response.Split(' ')[1];
             Title = baseTitle + DateTime.Now.ToString("yyyy_MM_dd_HH:mm:ss");
         }

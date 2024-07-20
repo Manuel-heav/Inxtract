@@ -1,0 +1,30 @@
+version: '3.4'
+
+services:
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  webapi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - mongo
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - MongoSettings__ConnectionString=mongodb://root:example@mongo:27017
+      - MongoSettings__DatabaseName=InxtractDB
+      - API_KEY_GEMINI=${MyApiKey}
+    ports:
+      - "5000:8080"
+
+volumes:
+  mongo-data:

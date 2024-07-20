@@ -1,0 +1,32 @@
+services:
+  - type: web
+    name: inxtract-web-api
+    env: docker
+    plan: free
+    dockerfilePath: Backend/Dockerfile
+    autoDeploy: true
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Development
+      - key: MongoSettings__ConnectionString
+        value: mongodb://mongo:27017
+      - key: MongoSettings__DatabaseName
+        value: InxtractDB
+      - key: API_KEY_GEMINI
+        value: ${MyApiKey}
+    routes:
+      - type: http
+        src: /
+        dest: /
+
+  - type: private-service
+    name: mongo
+    plan: free
+    envVars:
+      - key: MONGO_INITDB_ROOT_USERNAME
+        value: root
+      - key: MONGO_INITDB_ROOT_PASSWORD
+        value: example
+    dockerImage: mongo:latest
+    mountPath: /data/db
+    startCommand: mongod --dbpath /data/db
