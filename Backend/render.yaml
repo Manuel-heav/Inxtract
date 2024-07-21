@@ -9,7 +9,7 @@ services:
       - key: ASPNETCORE_ENVIRONMENT
         value: Development
       - key: MongoSettings__ConnectionString
-        value: mongodb://mongo:27017
+        value: mongodb://root:example@mongo:27017
       - key: MongoSettings__DatabaseName
         value: InxtractDB
       - key: API_KEY_GEMINI
@@ -22,11 +22,14 @@ services:
   - type: private-service
     name: mongo
     plan: free
+    dockerImage: mongo:latest
     envVars:
       - key: MONGO_INITDB_ROOT_USERNAME
         value: root
       - key: MONGO_INITDB_ROOT_PASSWORD
         value: example
-    dockerImage: mongo:latest
-    mountPath: /data/db
-    startCommand: mongod --dbpath /data/db
+    volumes:
+      - type: persistent
+        name: mongo-data
+        path: /data/db
+    startCommand: ["mongod", "--auth", "--bind_ip_all"]
