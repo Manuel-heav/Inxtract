@@ -71,7 +71,7 @@ namespace Backend.Controllers
             Conversation conversation = new(response)
             {
                 Text = textModel.Text,
-                Prompt = prompt,
+                Prompt = "Summarize the text",
                 UserId = textModel.UserId
             };
 
@@ -113,6 +113,31 @@ namespace Backend.Controllers
 
             Console.WriteLine("Saving conversation to database...");
             await _conversationsService.CreateConversationAsync(conversation);
+
+            Console.WriteLine("Chat completed successfully.");
+            return Ok(new { text = response });
+        }
+
+        [HttpPost]
+        [Route("topic")]
+        public async Task<IActionResult> GetTopic(TextModel textModel)
+        {
+            if (string.IsNullOrWhiteSpace(textModel.Text))
+            {
+                return BadRequest(new { message = "Invalid text." });
+            }
+
+            if (string.IsNullOrWhiteSpace(textModel.UserId))
+            {
+                return BadRequest(new { message = "Invalid userid." });
+            }
+
+            Console.WriteLine("Chatting with AI...");
+            // Call Gemini API with the text and prompt
+
+            Console.WriteLine("Sending text to Gemini API for chat...");
+            string prompt = "What is a good title for the provided text? Do not write anything else. Do not say something like -here is the title-, just return the title";
+            string response = await _chatWithPdfService.CallGeminiApiAsync(textModel.Text, prompt);
 
             Console.WriteLine("Chat completed successfully.");
             return Ok(new { text = response });
