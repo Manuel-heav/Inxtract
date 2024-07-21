@@ -1,3 +1,4 @@
+using Backend;
 using Backend.Data;
 using Backend.Services;
 using MongoDB.Driver;
@@ -11,6 +12,7 @@ builder.Services.AddControllers();
 builder.Services.AddSingleton<IMongoClient, MongoClient>(sp =>
 {
     var settings = builder.Configuration.GetSection("MongoSettings").Get<MongoSettings>();
+
     return new MongoClient(settings.ConnectionString);
 });
 
@@ -25,8 +27,12 @@ builder.Services.AddScoped<IMongoDatabase>(sp =>
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<ConversationsService>();
 builder.Services.AddTransient<ChatWithPdfService>();
+builder.Services.AddHealthChecks();
 
 var app = builder.Build();
+
+app.UseMiddleware<LoggingMiddleware>();
+app.UseHealthChecks("/api/health");
 
 // Enable CORS
 app.UseCors(builder =>
@@ -43,15 +49,13 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
-app.UseStaticFiles();
-
 app.UseRouting();
-
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapControllers();
 
 app.Run();

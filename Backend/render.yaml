@@ -1,0 +1,33 @@
+services:
+  - type: web
+    name: inxtract-web-api
+    env: docker
+    plan: free
+    dockerfilePath: Backend/Dockerfile
+    autoDeploy: true
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Development
+      - key: MongoSettings__ConnectionString
+        value: mongodb://root:example@mongo:27017
+      - key: MongoSettings__DatabaseName
+        value: InxtractDB
+    routes:
+      - type: http
+        src: /
+        dest: /
+
+  - type: private-service
+    name: mongo
+    plan: free
+    dockerImage: mongo:latest
+    envVars:
+      - key: MONGO_INITDB_ROOT_USERNAME
+        value: root
+      - key: MONGO_INITDB_ROOT_PASSWORD
+        value: example
+    volumes:
+      - type: persistent
+        name: mongo-data
+        path: /data/db
+    startCommand: ["mongod", "--auth", "--bind_ip_all"]

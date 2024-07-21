@@ -1,3 +1,4 @@
+using System.Net;
 using System.Text;
 using System.Text.Json;
 using Backend.Controllers;
@@ -40,8 +41,15 @@ namespace Backend.Services
             };
 
             string apiKeyFilePath = "API_KEYS/gemini.txt";
-            string apiKey = File.ReadAllText(apiKeyFilePath);
-            apiKey = Environment.GetEnvironmentVariable("API_KEY_GEMINI") ?? apiKey;
+            string apiKey;
+            if (File.Exists(apiKeyFilePath))
+            {
+                apiKey = File.ReadAllText(apiKeyFilePath);
+            }
+            else
+            {
+                apiKey = Environment.GetEnvironmentVariable("API_KEY_GEMINI") ?? "";
+            }
 
             if (string.IsNullOrEmpty(apiKey))
             {
@@ -53,6 +61,12 @@ namespace Backend.Services
             var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
             var response = await client.PostAsync("https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=" + apiKey, content);
+            if (response.StatusCode != HttpStatusCode.OK)
+            {
+                Console.WriteLine("Error: " + response.StatusCode);
+                Console.WriteLine("Response: " + await response.Content.ReadAsStringAsync());
+                return "";
+            }
 
 
             string responseBody = await response.Content.ReadAsStringAsync();
