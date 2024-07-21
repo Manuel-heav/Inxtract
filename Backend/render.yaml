@@ -12,8 +12,6 @@ services:
         value: mongodb://root:example@mongo:27017
       - key: MongoSettings__DatabaseName
         value: InxtractDB
-      - key: API_KEY_GEMINI
-        value: ${MyApiKey}
     routes:
       - type: http
         src: /
@@ -33,4 +31,3 @@ services:
         name: mongo-data
         path: /data/db
     startCommand: ["mongod", "--auth", "--bind_ip_all"]
-    

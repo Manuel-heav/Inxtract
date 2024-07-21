@@ -5,10 +5,6 @@ using MongoDB.Driver;
 
 var builder = WebApplication.CreateBuilder(args);
 
-Console.WriteLine($"Mongo Connection String: {Environment.GetEnvironmentVariable("MongoSettings__ConnectionString")}");
-Console.WriteLine($"API Key: {Environment.GetEnvironmentVariable("API_KEY_GEMINI")}");
-
-
 // Add services to the container.
 builder.Services.AddControllers();
 
@@ -16,6 +12,10 @@ builder.Services.AddControllers();
 builder.Services.AddSingleton<IMongoClient, MongoClient>(sp =>
 {
     var settings = builder.Configuration.GetSection("MongoSettings").Get<MongoSettings>();
+
+    Console.WriteLine($"MongoDB Database Name: {settings.DatabaseName}");
+    Console.WriteLine($"MongoDB Connection String: {settings.ConnectionString}");
+
     return new MongoClient(settings.ConnectionString);
 });
 
