@@ -22,7 +22,6 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - MongoSettings__ConnectionString=mongodb://root:example@mongo:27017
       - MongoSettings__DatabaseName=InxtractDB
-      - API_KEY_GEMINI=${MyApiKey}
     ports:
       - "5000:8080"
 

@@ -13,9 +13,6 @@ builder.Services.AddSingleton<IMongoClient, MongoClient>(sp =>
 {
     var settings = builder.Configuration.GetSection("MongoSettings").Get<MongoSettings>();
 
-    Console.WriteLine($"MongoDB Database Name: {settings.DatabaseName}");
-    Console.WriteLine($"MongoDB Connection String: {settings.ConnectionString}");
-
     return new MongoClient(settings.ConnectionString);
 });
 

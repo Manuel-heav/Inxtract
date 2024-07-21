@@ -57,8 +57,6 @@ namespace Backend.Services
                 return "";
             }
 
-            Console.WriteLine("API key: '" + apiKey + "'");
-
             var jsonContent = JsonSerializer.Serialize(requestBody);
             var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
