@@ -33,3 +33,4 @@ services:
         name: mongo-data
         path: /data/db
     startCommand: ["mongod", "--auth", "--bind_ip_all"]
+    

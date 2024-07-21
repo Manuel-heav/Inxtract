@@ -11,7 +11,7 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /app
 COPY --from=build /app .
 
-ENV MongoDB__ConnectionString=mongodb://localhost:27017
+ENV MongoDB__ConnectionString=mongodb://root:example@mongo:27017
 ENV MongoDB__DatabaseName=InxtractDB
 
 ENTRYPOINT ["dotnet", "Backend.dll"]

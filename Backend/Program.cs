@@ -5,6 +5,10 @@ using MongoDB.Driver;
 
 var builder = WebApplication.CreateBuilder(args);
 
+Console.WriteLine($"Mongo Connection String: {Environment.GetEnvironmentVariable("MongoSettings__ConnectionString")}");
+Console.WriteLine($"API Key: {Environment.GetEnvironmentVariable("API_KEY_GEMINI")}");
+
+
 // Add services to the container.
 builder.Services.AddControllers();
 
