@@ -12,7 +12,6 @@ builder.Services.AddControllers();
 builder.Services.AddSingleton<IMongoClient, MongoClient>(sp =>
 {
     var settings = builder.Configuration.GetSection("MongoSettings").Get<MongoSettings>();
-
     return new MongoClient(settings.ConnectionString);
 });
 
@@ -37,7 +36,7 @@ app.UseHealthChecks("/api/health");
 // Enable CORS
 app.UseCors(builder =>
 {
-    builder.WithOrigins("http://localhost:3000")
+    builder.WithOrigins("http://localhost:3000", "https://inxtract.vercel.app")
         .AllowAnyHeader()
         .AllowAnyMethod();
 });
