@@ -44,9 +44,9 @@ export function SummaryForm() {
   const [error, setError] = useState<string | null>(null);
   const [selectedPreset, setSelectedPreset] = useState<string>("");
 
-  const apiEndpoint1 = "http://localhost:5268/api/chatWithPdf/gettext";
-  const apiEndpoint2 = "http://localhost:5268/api/chatWithPdf/summary";
-  const apiEndpoint3 = "http://localhost:5268/api/chatWithPdf/chat";
+  const apiEndpoint1 = "https://inxtract.onrender.com/api/chatwithpdf/gettext";
+  const apiEndpoint2 = "https://inxtract.onrender.com/api/chatwithpdf/summary";
+  const apiEndpoint3 = "https://inxtract.onrender.com/api/chatwithpdf/chat";
 
   const callApiWithFormData = async (url: string, formData: globalThis.FormData) => {
     const requestOptions: RequestInit = {

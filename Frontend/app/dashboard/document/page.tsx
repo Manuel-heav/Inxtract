@@ -30,7 +30,7 @@ export default function DocumentSummarize() {
                         },
                         redirect: "follow",
                     };
-                    const response = await fetch("http://localhost:5268/api/conversations/list", requestOptions);
+                    const response = await fetch("https://inxtract.onrender.com/api/conversations/list", requestOptions);
                     if (!response.ok) {
                         throw new Error(`Network response was not ok, status: ${response.status}`);
                     }
@@ -48,8 +48,8 @@ export default function DocumentSummarize() {
     }, [userId]);
 
     const handleCardItemClick = (aiResponse: string) => {
-        let formattedText = cleanText(aiResponse)?.split(' ').slice(50).join(' ');
-        formattedText = formattedText.substring(0, formattedText.length - 695);
+        let formattedText = cleanText(aiResponse)?.split(' ').join(' ');
+        formattedText = formattedText.substring(0, formattedText.length);
         setSelectedContent(formattedText);
     };
 
