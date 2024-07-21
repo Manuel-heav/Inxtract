@@ -36,7 +36,7 @@ app.UseHealthChecks("/api/health");
 // Enable CORS
 app.UseCors(builder =>
 {
-    builder.WithOrigins("http://localhost:3000", "https://inxtract.vercel.app")
+    builder.WithOrigins("http://localhost:3000", "http://localhost:3001", "https://inxtract.vercel.app")
         .AllowAnyHeader()
         .AllowAnyMethod();
 });
